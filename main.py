@@ -1,15 +1,19 @@
 from menu import menu
+import logging
 
-while True:
-    user = input("\nENTER 1 ---> Student"
-                 "\nENTER 2 ---> Education Administrator"
-                 "\nENTER 0 ---> quit\n")
-    if not menu(user):
-        break
+if __name__ == "__main__":
+    my_logger = logging.getLogger(__name__)
+    my_logger.setLevel(logging.INFO)
+    file_handler = logging.FileHandler('file.log')
+    file_handler.setLevel(logging.ERROR)
+    file_handler.setLevel(logging.INFO)
+    log_format = logging.Formatter('%(asctime)s-%(levelname)s-%(message)s', datefmt='%y-%m-%d %H:%M:%S')
+    file_handler.setFormatter(log_format)
+    my_logger.addHandler(file_handler)
 
-# again = True
-# while again:
-#     user = input("\nENTER 1 ---> Student"
-#                  "\nENTER 2 ---> Education Administrator"
-#                  "\nENTER 0 ---> quit\n")
-#     again = menu(user)
+    while True:
+        choice = input("\nENTER 1 ---> sign-in"
+                       "\nENTER 2 ---> sign-up"
+                       "\nENTER 0 ---> quit\n")
+        if not menu(choice, my_logger):
+            break

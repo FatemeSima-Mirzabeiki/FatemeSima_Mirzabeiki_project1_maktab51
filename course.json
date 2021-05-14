@@ -1,0 +1,14 @@
+{
+        "computer": [
+                {
+                        "name": "DS",
+                        "professor": "moh",
+                        "credit": 3,
+                        "total_capacity": 21,
+                        "remaining_capacity": 21,
+                        "code": "1"
+                }
+        ],
+        "civil": [],
+        "general": []
+}
