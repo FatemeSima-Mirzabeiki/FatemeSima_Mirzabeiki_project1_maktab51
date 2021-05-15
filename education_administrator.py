@@ -132,7 +132,3 @@ def see_one_student(user_data, major):
         print("\nthere is no student with this username...\n")
         return True
 
-
-# if __name__ == "__main__":
-#     course_data = load_course_file()
-#     EducationAdministrator.create_course(course_data, 'computer')

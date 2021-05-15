@@ -105,7 +105,6 @@ class Student(User):
                 yield course_num, course
                 course_num += 1
 
-
     @property
     def get_credit(self):
         """
@@ -161,7 +160,7 @@ class Student(User):
                 each['is_confirm'] = self.is_confirm
 
         dump_user_file(user_data)
-        User.my_logger.info(f"{self.user_name} not confirmed.")
+        User.my_logger.info(f"{self.user_name} is_confirmed = {status}.")
         return True
 
     @staticmethod
@@ -347,13 +346,3 @@ def print_students(user_data, major):
             print(f"student {student_num}:")
             print(student)
 
-
-# if __name__ == "__main__":
-#     course_data = load_course_file()
-#     print_courses(course_data, 'computer')
-#     # student = Student.sign_in()
-#     # Course.show_courses(student.major)
-#     # student.take_course()
-#     # student.remove_course()
-#     # student.all_courses()
-#     student = Student.sign_up()
