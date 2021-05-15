@@ -37,7 +37,7 @@ class EducationAdministrator(User):
 
             dump_course_file(course_data)
 
-            User.my_logger.info(f"{course['name']} created.")
+            User.my_logger.info(f"{info['name']} created.")
             return course
         return False
 
@@ -84,53 +84,53 @@ def admin_which_activity(user_data, course_data, admin):
                 course = EducationAdministrator.create_course(course_data, admin.major)
                 if course:
                     print("\ncreating course was successful..\n")
-                else:
-                    return False
             elif activity == "2":
                 course = EducationAdministrator.delete_course(user_data, course_data, admin.major)
                 if course:
                     print("\ndeleting course was successful...\n")
-                else:
-                    return False
             elif activity == "3":
                 print_students(user_data, admin.major)
             elif activity == "4":
-                if not see_one_student(user_data):
-                    return False
+                see_one_student(user_data, admin.major)
         except AssertionError:
             print("\nWRONG INPUT...\n")
 
     return False
 
 
-def see_one_student(user_data):
+def see_one_student(user_data, major):
     """
     this function finds a student and confirm/not confirm it`s taking courses
     """
-    student_username = input("\nplease enter username of student: ")
-    student = Student.find_student(user_data, student_username)
+    if not Student.any_student(user_data, major):
+        print("\nthere is no student in your major...\n")
+        return True
 
-    if student:
-        print(student)
-        choice = input("\nENTER 1 ---> confirm it`s courses"
-                       "\nENTER 2 ---> not confirm it`s courses"
-                       "\nENTER 3 ---> do nothing"
-                       "\nENTER 0 ---> quit\n")
-        while True:
-            try:
-                assert choice in ['0', '1', '2', '3']
-                if choice == '0':
-                    return False
-                elif choice == '1':
-                    student.confirm_courses(user_data, True)
-                elif choice == '2':
-                    student.confirm_courses(user_data, False)
-                elif choice == '3':
-                    return True
-            except AssertionError:
-                print("\nWRONG INPUT...\n")
+    else:
+        student_username = input("\nplease enter username of student: ")
+        student = Student.find_student(user_data, student_username)
 
-    print("\nthere is no student with this username...\n")
+        if student:
+            print(student)
+            while True:
+                choice = input("\nENTER 1 ---> confirm it`s courses"
+                               "\nENTER 2 ---> not confirm it`s courses"
+                               "\nENTER 0 ---> back\n")
+                try:
+                    assert choice in ['0', '1', '2']
+                    if choice == '0':
+                        return True
+                    elif choice == '1':
+                        student.confirm_courses(user_data, True)
+                        return True
+                    elif choice == '2':
+                        student.confirm_courses(user_data, False)
+                        return True
+                except AssertionError:
+                    print("\nWRONG INPUT...\n")
+
+        print("\nthere is no student with this username...\n")
+        return True
 
 
 # if __name__ == "__main__":

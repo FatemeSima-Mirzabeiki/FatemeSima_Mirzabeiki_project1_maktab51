@@ -1,14 +1,25 @@
 {
+        "polymer": [],
         "computer": [
                 {
                         "name": "DS",
-                        "professor": "moh",
+                        "professor": "mohajjal",
+                        "credit": 3,
+                        "total_capacity": 30,
+                        "remaining_capacity": 30,
+                        "code": "1"
+                }
+        ],
+        "civil": [],
+        "general": [
+                {
+                        "name": "Andishe1",
+                        "professor": "rahnama",
                         "credit": 3,
                         "total_capacity": 21,
                         "remaining_capacity": 21,
                         "code": "1"
                 }
         ],
-        "civil": [],
-        "general": []
+        "mechanic": []
 }

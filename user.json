@@ -28,17 +28,11 @@
                 "is_blocked": false
         },
         {
-                "user_name": "ala",
+                "user_name": "polymer_admin",
                 "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-                "major": "civil",
-                "role": "student",
-                "is_blocked": false,
-                "all_courses": {
-                        "general": [],
-                        "civil": []
-                },
-                "credit": 0,
-                "is_confirm": true
+                "major": "polymer",
+                "role": "admin",
+                "is_blocked": false
         },
         {
                 "user_name": "sima",

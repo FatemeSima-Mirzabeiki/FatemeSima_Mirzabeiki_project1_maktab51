@@ -164,6 +164,20 @@ class Student(User):
         User.my_logger.info(f"{self.user_name} not confirmed.")
         return True
 
+    @staticmethod
+    def any_student(user_data, major):
+        any_student = False
+        for each in user_data:
+            if each['role'] == 'student':
+                if major != 'general' and each['major'] == major:
+                    # it means there is students for this major...
+                    any_student = True
+                    break
+                elif major == 'general':
+                    any_student = True
+                    break
+        return any_student
+
 
 def student_which_activity(user_data, course_data, student):
     end = False
@@ -179,15 +193,13 @@ def student_which_activity(user_data, course_data, student):
             if activity == "0":
                 end = True
             elif activity == "1":
-                if not see_all_courses(course_data, student):
-                    return False
+                see_all_courses(course_data, student)
             elif activity == "2":
-                return take_course(user_data, course_data, student)
+                take_course(user_data, course_data, student)
             elif activity == "3":
-                return remove_course(user_data, course_data, student)
+                remove_course(user_data, course_data, student)
             elif activity == "4":
-                if not student_courses(course_data, student):
-                    return False
+                student_courses(course_data, student)
             elif activity == "5":
                 print(f"the amount of your credit = {student.get_credit}")
         except AssertionError:
@@ -199,7 +211,7 @@ def student_which_activity(user_data, course_data, student):
 def which_type_of_course(student):
     type = input(f"\nENTER 1 ---> general course"
                  f"\nENTER 2 ---> {student.major} course"
-                 f"\nENTER 0 ---> quit\n")
+                 f"\nENTER 0 ---> back\n")
     try:
         assert type in ['0', '1', '2']
         if type == '0':
@@ -317,23 +329,23 @@ def student_courses(course_data, student):
 
 def see_all_courses(course_data, student):
     type_of_course = which_type_of_course(student)
-    if not type_of_course:
-        return False
-    print_courses(course_data, type_of_course)
-    return True
+
+    if type_of_course:
+        print_courses(course_data, type_of_course)
+        return True
 
 
 def print_students(user_data, major):
     """
     this function prints all major`s students
     """
-    for student_num, student in Student.each_student(user_data, major):
-        if not student:
+    if not Student.any_student(user_data, major):
+        print("\nthere is no student in your major...\n")
+    else:
+        for student_num, student in Student.each_student(user_data, major):
             # it means there is no student for this major...
-            print("\nthere is no student in your major...\n")
-            return
-        print(f"student {student_num}:")
-        print(student)
+            print(f"student {student_num}:")
+            print(student)
 
 
 # if __name__ == "__main__":

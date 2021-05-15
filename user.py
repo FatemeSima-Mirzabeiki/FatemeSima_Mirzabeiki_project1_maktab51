@@ -226,8 +226,7 @@ def print_courses(course_data, major):
     """
     this function prints all major`s courses
     """
-    majors = list(course_data.keys())
-    if major in majors:
+    if course_data[major]:
         for course_num, course in Course.each_course(course_data, major):
             print(f"course {course_num}:")
             print(course)
