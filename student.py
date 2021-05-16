@@ -1,4 +1,4 @@
-from user import User, dump_user_file, print_courses
+from user import User, dump_user_file, major_courses
 from course import Course, dump_course_file, is_course_exist
 import logging
 
@@ -192,7 +192,9 @@ def student_which_activity(user_data, course_data, student):
             if activity == "0":
                 end = True
             elif activity == "1":
-                see_all_courses(course_data, student)
+                type_of_course = which_type_of_course(student)
+                if type_of_course:
+                    major_courses(course_data, type_of_course)
             elif activity == "2":
                 take_course(user_data, course_data, student)
             elif activity == "3":
@@ -323,14 +325,6 @@ def student_courses(course_data, student):
             print(course)
     else:
         print(f"\nyou don`t have any {type_of_course} course...\n")
-        return True
-
-
-def see_all_courses(course_data, student):
-    type_of_course = which_type_of_course(student)
-
-    if type_of_course:
-        print_courses(course_data, type_of_course)
         return True
 
 

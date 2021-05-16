@@ -1,5 +1,5 @@
-from user import User
-from course import Course, dump_course_file, is_course_exist, get_course_info, load_course_file
+from user import User, major_courses
+from course import dump_course_file, is_course_exist, get_course_info
 from student import Student, print_students
 import json
 import logging
@@ -71,26 +71,29 @@ def admin_which_activity(user_data, course_data, admin):
     end = False
     major = admin.major if admin.major != 'general' else 'all'
     while not end:
-        activity = input(f"\nENTER 1 ---> create a course"
-                         f"\nENTER 2 ---> delete a course"
-                         f"\nENTER 3 ---> see a list of {major} students"
-                         f"\nENTER 4 ---> choose a student and see it`s courses"
+        activity = input(f"\nENTER 1 ---> see courses"
+                         f"\nENTER 2 ---> create a course"
+                         f"\nENTER 3 ---> delete a course"
+                         f"\nENTER 4 ---> see a list of {major} students"
+                         f"\nENTER 5 ---> choose a student and see it`s courses"
                          f"\nENTER 0 ---> quit\n")
         try:
-            assert activity in ['0', '1', '2', '3', '4']
+            assert activity in ['0', '1', '2', '3', '4', '5']
             if activity == "0":
                 end = True
             elif activity == "1":
+                major_courses(course_data, admin.major)
+            elif activity == "2":
                 course = EducationAdministrator.create_course(course_data, admin.major)
                 if course:
                     print("\ncreating course was successful..\n")
-            elif activity == "2":
+            elif activity == "3":
                 course = EducationAdministrator.delete_course(user_data, course_data, admin.major)
                 if course:
                     print("\ndeleting course was successful...\n")
-            elif activity == "3":
-                print_students(user_data, admin.major)
             elif activity == "4":
+                print_students(user_data, admin.major)
+            elif activity == "5":
                 see_one_student(user_data, admin.major)
         except AssertionError:
             print("\nWRONG INPUT...\n")

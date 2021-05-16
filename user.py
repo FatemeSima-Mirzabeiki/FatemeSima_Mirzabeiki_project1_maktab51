@@ -222,6 +222,11 @@ def get_user_info(user_data, course_data, which):
         return user_name, password, major
 
 
+def major_courses(course_data, major):
+    print_courses(course_data, major)
+    return True
+
+
 def print_courses(course_data, major):
     """
     this function prints all major`s courses
