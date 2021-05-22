@@ -3,9 +3,9 @@ import logging
 
 if __name__ == "__main__":
     my_logger = logging.getLogger(__name__)
-    my_logger.setLevel(logging.ERROR)
+    my_logger.setLevel(logging.INFO)
     file_handler = logging.FileHandler('file.log')
-    file_handler.setLevel(logging.ERROR)
+    file_handler.setLevel(logging.INFO)
     log_format = logging.Formatter('%(asctime)s-%(levelname)s-%(message)s', datefmt='%y-%m-%d %H:%M:%S')
     file_handler.setFormatter(log_format)
     my_logger.addHandler(file_handler)
